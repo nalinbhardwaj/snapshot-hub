@@ -108,7 +108,7 @@ async function run() {
   } catch (e) {
     console.log('[spaces] Failed to run', e);
   }
-  await snapshot.utils.sleep(20e3);
+  await snapshot.utils.sleep(200e3);
   await run();
 }
 

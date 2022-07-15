@@ -136,14 +136,21 @@ export async function getProposalScores(proposalId, force = false) {
         await db.queryAsync(query2, params);
         if (i) await snapshot.utils.sleep(200);
         i++;
-        // console.log('[scores] Updated votes');
+        console.log('[scores] Updated votes');
       }
 
-      // console.log('[scores] Votes updated', votes.length);
+      console.log('[scores] Votes updated', votes.length);
     }
 
     // Store scores
     const ts = (Date.now() / 1e3).toFixed();
+    console.log('bunch of stuff', results.scores_state,
+    JSON.stringify(results.scores),
+    JSON.stringify(results.scores_by_strategy),
+    results.scores_total,
+    ts,
+    votes.length,
+    proposalId);
     const query = `
       UPDATE proposals
       SET scores_state = ?,
@@ -204,7 +211,7 @@ async function run() {
   if (proposal && proposal.id) {
     // console.log('[scores] Get proposal', proposal.space, proposal.id);
     await getProposalScores(proposal.id);
-    // await snapshot.utils.sleep(5e3);
+    await snapshot.utils.sleep(20e3);
     await run();
   }
 }
